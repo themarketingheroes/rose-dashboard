@@ -57,7 +57,7 @@ for i, m in enumerate(bars):
     svg.append(f'<text x="{x0+bw+3:.0f}" y="{label_y:.0f}" text-anchor="middle" font-family="Arial" '
                f'font-size="11" font-weight="700" fill="{col}">{pct:+.0f}%</text>')
     svg.append(f'<text x="{x0+bw+3:.0f}" y="{H-16:.0f}" text-anchor="middle" font-family="Arial" '
-               f'font-size="11" fill="#EAF2F2">{m["label"].split()[0]}</text>')
+               f'font-size="11" fill="#EAF2F2">{m["short"]}</text>')
 svg.append('</svg>')
 chart = "".join(svg)
 
@@ -128,7 +128,7 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <main>
 
  <h2><span class="n">01</span>Since we took over</h2>
- <p class="lead">{d['window_label']}, compared with the same three months last year.</p>
+ <p class="lead">{d['window_label']}, compared with the same dates last year.</p>
  <div class="kpis">
   <div class="kpi"><div class="v">${tot_sales:,}</div><div class="l">Attributed sales (Meta)</div><div class="d">vs ${ly_sales:,} last year</div></div>
   <div class="kpi"><div class="v">${tot_spend:,}</div><div class="l">Ad spend</div><div class="d">vs ${ly_spend:,} last year</div></div>

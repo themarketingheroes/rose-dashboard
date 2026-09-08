@@ -3,24 +3,25 @@
   "prepared_for": "Tiffany Johnson",
   "account": "51962666",
   "through": "Sept 8, 2026",
-  "window_label": "June 1 to August 31, 2026, the three complete months since takeover",
-  "ly_spend": 7691,
-  "ly_sales": 43110,
-  "ly_roas": 5.61,
-  "bookings_note": "across 3 complete months",
+  "window_label": "May 19 to August 31, 2026, every day since takeover",
+  "ly_spend": 8270,
+  "ly_sales": 48997,
+  "ly_roas": 5.92,
+  "bookings_note": "vs 532 last year",
   "months": [
     {
-      "label": "May 2026",
-      "spend": 6559,
-      "bookings": 377,
-      "sales": 50959,
-      "roas": 7.8,
-      "ly_sales": 25010,
-      "note": "Took over May 19. Full audit and cleanup. Month shown for context, not counted in the totals above.",
-      "chart": false,
-      "partial": true,
-      "counted": false,
-      "tag": "took over May 19"
+      "label": "May 19-31, 2026",
+      "spend": 3324,
+      "bookings": 185,
+      "sales": 24378,
+      "roas": 7.3,
+      "ly_sales": 5887,
+      "note": "Took over May 19. Full account audit and cleanup. Compared with the same 13 days last year.",
+      "chart": true,
+      "partial": false,
+      "counted": true,
+      "tag": "from takeover",
+      "short": "May 19-31"
     },
     {
       "label": "June 2026",
@@ -33,7 +34,8 @@
       "chart": true,
       "partial": false,
       "counted": true,
-      "tag": null
+      "tag": null,
+      "short": "June"
     },
     {
       "label": "July 2026",
@@ -46,7 +48,8 @@
       "chart": true,
       "partial": false,
       "counted": true,
-      "tag": null
+      "tag": null,
+      "short": "July"
     },
     {
       "label": "August 2026",
@@ -59,7 +62,8 @@
       "chart": true,
       "partial": false,
       "counted": true,
-      "tag": null
+      "tag": null,
+      "short": "August"
     },
     {
       "label": "Sept 1-8, 2026",
@@ -72,10 +76,11 @@
       "chart": false,
       "partial": true,
       "counted": false,
-      "tag": "partial"
+      "tag": "partial",
+      "short": "Sept"
     }
   ],
-  "partial_note": "May and September sit outside the headline window. We took over on May 19, so May includes 18 days that were not ours, and September is only 8 days of data against a full month last year. Both are shown for completeness and excluded from the totals above.",
+  "partial_note": "September is the only period left out of the totals above. It is 8 days of data against a full month last year, so it is shown for completeness only. May now starts on the 19th, the day we took over, and is compared with the same 13 days last year.",
   "season": {
     "lead": "What October through January produced last season, all Meta-attributed. This is the window we are planning for now, and it opens with Goatstravaganza on October 3 and 4.",
     "cells": [
@@ -105,8 +110,8 @@
   },
   "footer_note": "ROSE Therapeutic Farm, Monthly Scorecard, Sept 2026",
   "takeover": "May 19, 2026",
-  "ly_bookings": 478,
+  "ly_bookings": 532,
   "headline_title": "The headline",
-  "headline": "We took the account over on <b>May 19</b>. Across the three complete months since then, June through August, ad spend went from <b>$7,691</b> to <b>$17,722</b> and attributed sales went from <b>$43,110</b> to <b>$85,938</b>, up <b>99%</b>. Bookings rose <b>73%</b>. ROAS moved from 5.6x to 4.9x, which is what happens when you scale spend into colder audiences, and that period still includes August, when ads were paused most of the month at your request.",
-  "chart_lead": "Attributed sales for the three complete months since takeover. August is low by design, ads were paused most of the month at your request."
+  "headline": "We took the account over on <b>May 19</b>. Every day since then through the end of August, ad spend went from <b>$8,270</b> to <b>$21,046</b> and attributed sales went from <b>$48,997</b> to <b>$110,316</b>, up <b>125%</b>. Bookings rose <b>90%</b>, from 532 to 1013. ROAS moved from 5.9x to 5.2x, which is what happens when you scale spend into colder audiences, and that period still includes August, when ads were paused most of the month at your request.",
+  "chart_lead": "Attributed sales since takeover, each period against the exact same dates last year. August is low by design, ads were paused most of the month at your request."
 }
