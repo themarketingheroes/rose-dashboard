@@ -142,6 +142,9 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
  .tag{{font-size:9.5px;background:#243030;color:#93A2A2;padding:2px 6px;border-radius:99px;letter-spacing:.5px;white-space:nowrap}}
  .callout{{background:var(--tint);border:1px solid #17494B;border-left:4px solid var(--accent);border-radius:10px;padding:16px 18px;margin:16px 0}}
  .callout h3{{margin:0 0 5px;font-size:14.5px;color:var(--accent)}} .callout p{{margin:0;color:#D3E4E4;font-size:13.5px}} .callout b{{color:#fff}}
+ .note-panel{{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;margin:14px 0}}
+ .note-panel h3{{margin:0 0 6px;font-size:13px;font-weight:800;color:#fff;letter-spacing:.2px}}
+ .note-panel p{{margin:0;color:#B9C7C7;font-size:13px;line-height:1.62}} .note-panel b{{color:#fff;font-weight:700}}
  .season{{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}}
  .s{{flex:1 1 150px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 15px}}
  .s .m{{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#98A6A6}} .s .v{{font-size:20px;font-weight:800;color:var(--accent);margin-top:2px}}
@@ -167,6 +170,7 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
   <div class="kpi"><div class="v">{tot_roas:.1f}x</div><div class="l">Blended ROAS</div><div class="d">vs {ly_roas:.1f}x last year</div></div>
  </div>
  <div class="callout"><h3>{d['headline_title']}</h3><p>{d['headline']}</p></div>
+ <div class="note-panel"><h3>{d['roas_title']}</h3><p>{d['roas_note']}</p></div>
 
  <h2><span class="n">02</span>This year vs last year, month by month</h2>
  <p class="lead">{d['chart_lead']}</p>
