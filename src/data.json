@@ -21,7 +21,9 @@
       "partial": false,
       "counted": true,
       "tag": "from takeover",
-      "short": "May 19-31"
+      "short": "May 19-31",
+      "ly_spend": 579,
+      "ly_bookings": 54
     },
     {
       "label": "June 2026",
@@ -35,7 +37,9 @@
       "partial": false,
       "counted": true,
       "tag": null,
-      "short": "June"
+      "short": "June",
+      "ly_spend": 2127,
+      "ly_bookings": 170
     },
     {
       "label": "July 2026",
@@ -49,7 +53,9 @@
       "partial": false,
       "counted": true,
       "tag": null,
-      "short": "July"
+      "short": "July",
+      "ly_spend": 3247,
+      "ly_bookings": 165
     },
     {
       "label": "August 2026",
@@ -63,7 +69,9 @@
       "partial": false,
       "counted": true,
       "tag": null,
-      "short": "August"
+      "short": "August",
+      "ly_spend": 2317,
+      "ly_bookings": 143
     },
     {
       "label": "Sept 1-8, 2026",
@@ -77,7 +85,9 @@
       "partial": true,
       "counted": false,
       "tag": "partial",
-      "short": "Sept"
+      "short": "Sept",
+      "ly_spend": 5390,
+      "ly_bookings": 310
     }
   ],
   "partial_note": "September is the only period left out of the totals above. It is 8 days of data against a full month last year, so it is shown for completeness only. May now starts on the 19th, the day we took over, and is compared with the same 13 days last year.",

@@ -44,12 +44,15 @@ for gi in range(4):
     svg.append(f'<line x1="{pad_l}" y1="{y:.0f}" x2="{W-8}" y2="{y:.0f}" stroke="#243030" stroke-width="1"/>')
     svg.append(f'<text x="{pad_l-8}" y="{y+4:.0f}" text-anchor="end" font-family="Arial" '
                f'font-size="10" fill="#93A2A2">${mx*(1-gi/3)/1000:.0f}k</text>')
+hit = []   # transparent hover targets, appended last so they sit on top
 for i, m in enumerate(bars):
     cur, ly = m["sales"], m["ly_sales"]
     x0 = pad_l + grp_w * i + grp_w * 0.16
     h1, h2 = plot_h * ly / mx, plot_h * cur / mx
-    svg.append(f'<rect x="{x0:.0f}" y="{pad_t+plot_h-h1:.0f}" width="{bw:.0f}" height="{h1:.0f}" fill="#3A4A4A" rx="3"/>')
-    svg.append(f'<rect x="{x0+bw+6:.0f}" y="{pad_t+plot_h-h2:.0f}" width="{bw:.0f}" height="{h2:.0f}" fill="#00CED1" rx="3"/>')
+    svg.append(f'<rect x="{x0:.0f}" y="{pad_t+plot_h-h1:.0f}" width="{bw:.0f}" height="{h1:.0f}" '
+               f'fill="#3A4A4A" rx="3" class="b b{i} ly"/>')
+    svg.append(f'<rect x="{x0+bw+6:.0f}" y="{pad_t+plot_h-h2:.0f}" width="{bw:.0f}" height="{h2:.0f}" '
+               f'fill="#00CED1" rx="3" class="b b{i} ty"/>')
     pct = (cur - ly) / ly * 100
     col = "#3FD08A" if pct >= 0 else "#C9A86A"
     # anchor the label above the TALLER bar so it never overlaps the other one
@@ -58,6 +61,18 @@ for i, m in enumerate(bars):
                f'font-size="11" font-weight="700" fill="{col}">{pct:+.0f}%</text>')
     svg.append(f'<text x="{x0+bw+3:.0f}" y="{H-16:.0f}" text-anchor="middle" font-family="Arial" '
                f'font-size="11" fill="#EAF2F2">{m["short"]}</text>')
+
+    ly_roas = m["ly_sales"] / m["ly_spend"]
+    tip = {
+        "label": m["label"], "short": m["short"],
+        "cur": {"sales": m["sales"], "spend": m["spend"], "bk": m["bookings"], "roas": f'{m["roas"]:.1f}'},
+        "ly":  {"sales": m["ly_sales"], "spend": m["ly_spend"], "bk": m["ly_bookings"], "roas": f'{ly_roas:.1f}'},
+        "pct": f'{pct:+.0f}%', "up": pct >= 0,
+    }
+    hit.append(f'<rect x="{pad_l+grp_w*i:.0f}" y="{pad_t:.0f}" width="{grp_w:.0f}" height="{plot_h:.0f}" '
+               f'fill="transparent" class="hit" data-i="{i}" '
+               f"data-tip='{json.dumps(tip)}'></rect>")
+svg.append("".join(hit))
 svg.append('</svg>')
 chart = "".join(svg)
 
@@ -97,7 +112,18 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
  .kpi .v{{font-size:23px;font-weight:800;color:var(--accent)}}
  .kpi .l{{font-size:11px;letter-spacing:.4px;color:#98A6A6;margin-top:3px;text-transform:uppercase}}
  .kpi .d{{font-size:11.5px;margin-top:6px;font-weight:700;color:var(--accent2)}}
- .card{{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px 10px;margin:14px 0}}
+ .card{{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px 10px;margin:14px 0;position:relative}}
+ .b{{transition:opacity .12s ease}} .hit{{cursor:pointer}}
+ .card.dim .b{{opacity:.32}} .card.dim .b.on{{opacity:1}}
+ #tip{{position:absolute;z-index:5;pointer-events:none;opacity:0;transition:opacity .12s ease;background:#0B1717;border:1px solid #21585A;border-radius:9px;padding:11px 13px;min-width:186px;box-shadow:0 8px 24px rgba(0,0,0,.6)}}
+ #tip.on{{opacity:1}}
+ #tip .t{{font-size:12px;font-weight:800;color:var(--accent);margin-bottom:8px;white-space:nowrap}}
+ #tip .r{{display:flex;justify-content:space-between;gap:16px;font-size:12px;padding:3px 0;white-space:nowrap}}
+ #tip .r span:first-child{{color:var(--muted)}} #tip .r span:last-child{{color:#fff;font-weight:700;font-variant-numeric:tabular-nums}}
+ #tip .hr{{height:1px;background:#21585A;margin:7px 0}}
+ #tip .yr{{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:#7E8C8C;margin:2px 0 3px}}
+ #tip .d{{font-size:12px;font-weight:800;text-align:right;margin-top:7px}}
+ #tip .d.up{{color:var(--green)}} #tip .d.dn{{color:var(--flat)}}
  .legend{{display:flex;gap:18px;font-size:12px;color:var(--muted);margin-top:6px}}
  .sw{{width:12px;height:12px;border-radius:3px;display:inline-block;vertical-align:-1px;margin-right:6px}}
  .tablewrap{{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:14px 0;background:var(--panel)}}
@@ -139,8 +165,9 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 
  <h2><span class="n">02</span>This year vs last year, month by month</h2>
  <p class="lead">{d['chart_lead']}</p>
- <div class="card">{chart}
-  <div class="legend"><span><span class="sw" style="background:#3A4A4A"></span>Last year</span><span><span class="sw" style="background:#00CED1"></span>This year</span></div>
+ <div class="card" id="chartcard">{chart}
+  <div id="tip"></div>
+  <div class="legend"><span><span class="sw" style="background:#3A4A4A"></span>Last year</span><span><span class="sw" style="background:#00CED1"></span>This year</span><span style="margin-left:auto;font-size:11px">Hover a column for detail</span></div>
  </div>
 
  <h2><span class="n">03</span>The scorecard</h2>
@@ -157,7 +184,51 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 
 </main>
 <footer><span><img src="{logo}" alt="Dotoli Digital">&nbsp;&nbsp;|&nbsp;&nbsp;dotolidigital.com</span><span>{d['footer_note']}</span></footer>
-</div></body></html>"""
+</div>
+<script>
+(function(){{
+ var card=document.getElementById('chartcard'), tip=document.getElementById('tip');
+ if(!card||!tip) return;
+ var money=function(n){{return '$'+n.toLocaleString('en-US');}};
+ function show(el,ev){{
+  var t; try{{ t=JSON.parse(el.getAttribute('data-tip')); }}catch(e){{ return; }}
+  tip.innerHTML='<div class="t">'+t.label+'</div>'
+   +'<div class="yr">This year</div>'
+   +'<div class="r"><span>Sales</span><span>'+money(t.cur.sales)+'</span></div>'
+   +'<div class="r"><span>Spend</span><span>'+money(t.cur.spend)+'</span></div>'
+   +'<div class="r"><span>Bookings</span><span>'+t.cur.bk+'</span></div>'
+   +'<div class="r"><span>ROAS</span><span>'+t.cur.roas+'x</span></div>'
+   +'<div class="hr"></div><div class="yr">Same dates last year</div>'
+   +'<div class="r"><span>Sales</span><span>'+money(t.ly.sales)+'</span></div>'
+   +'<div class="r"><span>Spend</span><span>'+money(t.ly.spend)+'</span></div>'
+   +'<div class="r"><span>Bookings</span><span>'+t.ly.bk+'</span></div>'
+   +'<div class="r"><span>ROAS</span><span>'+t.ly.roas+'x</span></div>'
+   +'<div class="d '+(t.up?'up':'dn')+'">'+t.pct+' sales</div>';
+  tip.classList.add('on'); card.classList.add('dim');
+  var i=el.getAttribute('data-i');
+  card.querySelectorAll('.b').forEach(function(b){{ b.classList.toggle('on', b.classList.contains('b'+i)); }});
+  move(ev);
+ }}
+ function move(ev){{
+  var r=card.getBoundingClientRect(), x=ev.clientX-r.left+14, y=ev.clientY-r.top+14;
+  if(x+tip.offsetWidth > r.width-8) x=ev.clientX-r.left-tip.offsetWidth-14;
+  if(y+tip.offsetHeight > r.height-8) y=r.height-tip.offsetHeight-8;
+  if(x<8) x=8; if(y<8) y=8;
+  tip.style.left=x+'px'; tip.style.top=y+'px';
+ }}
+ function hide(){{
+  tip.classList.remove('on'); card.classList.remove('dim');
+  card.querySelectorAll('.b').forEach(function(b){{ b.classList.remove('on'); }});
+ }}
+ card.querySelectorAll('.hit').forEach(function(el){{
+  el.addEventListener('pointerenter', function(ev){{ show(el,ev); }});
+  el.addEventListener('pointermove', move);
+  el.addEventListener('pointerleave', hide);
+ }});
+ card.addEventListener('pointerleave', hide);
+}})();
+</script>
+</body></html>"""
 
 assert "—" not in html, "em dash found in output"
 out = os.path.join(ROOT, "index.html")
