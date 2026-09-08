@@ -68,7 +68,7 @@
       "sales": 3484,
       "roas": 9.0,
       "ly_sales": 26428,
-      "note": "Labor Day campaign relaunched. Season plan built.",
+      "note": "Labor Day event cancelled. Goatstravaganza rescheduled to October 3 and 4. Season plan built around the new date.",
       "chart": false,
       "partial": true,
       "counted": false,
@@ -77,7 +77,7 @@
   ],
   "partial_note": "May and September sit outside the headline window. We took over on May 19, so May includes 18 days that were not ours, and September is only 8 days of data against a full month last year. Both are shown for completeness and excluded from the totals above.",
   "season": {
-    "lead": "What October through January produced last season, all Meta-attributed. This is the window we are planning for now.",
+    "lead": "What October through January produced last season, all Meta-attributed. This is the window we are planning for now, and it opens with Goatstravaganza on October 3 and 4.",
     "cells": [
       [
         "October",
@@ -100,8 +100,8 @@
         226761
       ]
     ],
-    "callout_title": "Why the next 6 weeks matter",
-    "callout": "Last season Oct to Jan delivered <b>$226,761</b> on <b>$26,401</b> of spend, an <b>8.6x</b> return. That is the single biggest revenue window of the year, and campaigns need to be live and out of learning before it starts."
+    "callout_title": "The season opens October 3",
+    "callout": "Last season Oct to Jan delivered <b>$226,761</b> on <b>$26,401</b> of spend, an <b>8.6x</b> return. It is the single biggest revenue window of the year, and this year it opens with <b>Goatstravaganza on October 3 and 4</b>. That is under four weeks out, so those campaigns need to go live now to clear the Meta learning phase before the event rather than during it."
   },
   "footer_note": "ROSE Therapeutic Farm, Monthly Scorecard, Sept 2026",
   "takeover": "May 19, 2026",
