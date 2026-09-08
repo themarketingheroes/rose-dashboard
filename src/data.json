@@ -75,12 +75,12 @@
     },
     {
       "label": "Sept 1-8, 2026",
-      "spend": 387,
+      "spend": 405,
       "bookings": 45,
       "sales": 3484,
-      "roas": 9.0,
+      "roas": 8.6,
       "ly_sales": 26428,
-      "note": "Labor Day event cancelled. Goatstravaganza rescheduled to October 3 and 4. Season plan built around the new date.",
+      "note": "Labor Day event moved to October 3 and 4. Rebuilt the campaign around the new dates. Built the Oct-Jan season plan.",
       "chart": false,
       "partial": true,
       "counted": false,
@@ -90,7 +90,7 @@
       "ly_bookings": 310
     }
   ],
-  "partial_note": "September is the only period left out of the totals above. It is 8 days of data against a full month last year, so it is shown for completeness only. May now starts on the 19th, the day we took over, and is compared with the same 13 days last year.",
+  "partial_note": "September is the only period left out of the totals above. It is 8 days of data against a full month last year, so there is no meaningful percentage to show. May now starts on the 19th, the day we took over, and is compared with the same 13 days last year.",
   "season": {
     "lead": "What October through January produced last season, all Meta-attributed. This is the window we are planning for now, and it opens with Goatstravaganza on October 3 and 4.",
     "cells": [

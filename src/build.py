@@ -26,7 +26,8 @@ tot_spend = sum(m["spend"] for m in counted)
 tot_sales = sum(m["sales"] for m in counted)
 tot_book = sum(m["bookings"] for m in counted)
 tot_roas = tot_sales / tot_spend
-ly_spend, ly_sales, ly_roas = d["ly_spend"], d["ly_sales"], d["ly_roas"]
+ly_spend, ly_sales = d["ly_spend"], d["ly_sales"]
+ly_roas = ly_sales / ly_spend          # derived, so the tile can never contradict the figures beside it
 ly_book = d["ly_bookings"]
 growth_pct = (tot_sales - ly_sales) / ly_sales * 100
 
@@ -62,11 +63,11 @@ for i, m in enumerate(bars):
     svg.append(f'<text x="{x0+bw+3:.0f}" y="{H-16:.0f}" text-anchor="middle" font-family="Arial" '
                f'font-size="11" fill="#EAF2F2">{m["short"]}</text>')
 
-    ly_roas = m["ly_sales"] / m["ly_spend"]
+    m_ly_roas = m["ly_sales"] / m["ly_spend"]
     tip = {
         "label": m["label"], "short": m["short"],
         "cur": {"sales": m["sales"], "spend": m["spend"], "bk": m["bookings"], "roas": f'{m["roas"]:.1f}'},
-        "ly":  {"sales": m["ly_sales"], "spend": m["ly_spend"], "bk": m["ly_bookings"], "roas": f'{ly_roas:.1f}'},
+        "ly":  {"sales": m["ly_sales"], "spend": m["ly_spend"], "bk": m["ly_bookings"], "roas": f'{m_ly_roas:.1f}'},
         "pct": f'{pct:+.0f}%', "up": pct >= 0,
     }
     hit.append(f'<rect x="{pad_l+grp_w*i:.0f}" y="{pad_t:.0f}" width="{grp_w:.0f}" height="{plot_h:.0f}" '
@@ -79,13 +80,16 @@ chart = "".join(svg)
 # ---------- scorecard table ----------
 trs = ""
 for m in months:
-    pct = (m["sales"] - m["ly_sales"]) / m["ly_sales"] * 100
-    cls = "up" if pct >= 0 else "down"
+    if m.get("partial"):
+        change = '<td class="num na">n/a, partial month</td>'
+    else:
+        pct = (m["sales"] - m["ly_sales"]) / m["ly_sales"] * 100
+        change = f'<td class="num {"up" if pct >= 0 else "down"}">{pct:+.0f}%</td>'
     tag = f' <span class="tag">{m["tag"]}</span>' if m.get("tag") else ''
     trs += (f'<tr><td><b>{m["label"]}</b>{tag}</td><td class="num">${m["spend"]:,}</td>'
             f'<td class="num">{m["bookings"]}</td><td class="num">${m["sales"]:,}</td>'
             f'<td class="num">{m["roas"]}</td><td class="num">${m["ly_sales"]:,}</td>'
-            f'<td class="num {cls}">{pct:+.0f}%</td><td class="note">{m["note"]}</td></tr>')
+            + change + f'<td class="note">{m["note"]}</td></tr>')
 
 season_cells = "".join(
     f'<div class="s"><div class="m">{n}</div><div class="v">${v:,}</div></div>'
@@ -133,6 +137,7 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
  tbody tr:last-child td{{border-bottom:none}} tbody tr:nth-child(even){{background:var(--panel2)}}
  td.num,th.num{{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}}
  td.note{{color:var(--muted);font-size:12px;max-width:280px}}
+ .na{{color:#7E8C8C;font-weight:600;font-size:11.5px;white-space:nowrap}}
  .up{{color:var(--green);font-weight:800}} .down{{color:var(--flat);font-weight:800}}
  .tag{{font-size:9.5px;background:#243030;color:#93A2A2;padding:2px 6px;border-radius:99px;letter-spacing:.5px;white-space:nowrap}}
  .callout{{background:var(--tint);border:1px solid #17494B;border-left:4px solid var(--accent);border-radius:10px;padding:16px 18px;margin:16px 0}}
