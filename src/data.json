@@ -1,0 +1,112 @@
+{
+  "client": "ROSE Therapeutic Farm & Goat Yoga",
+  "prepared_for": "Tiffany Johnson",
+  "account": "51962666",
+  "through": "Sept 8, 2026",
+  "window_label": "June 1 to August 31, 2026, the three complete months since takeover",
+  "ly_spend": 7691,
+  "ly_sales": 43110,
+  "ly_roas": 5.61,
+  "bookings_note": "across 3 complete months",
+  "months": [
+    {
+      "label": "May 2026",
+      "spend": 6559,
+      "bookings": 377,
+      "sales": 50959,
+      "roas": 7.8,
+      "ly_sales": 25010,
+      "note": "Took over May 19. Full audit and cleanup. Month shown for context, not counted in the totals above.",
+      "chart": false,
+      "partial": true,
+      "counted": false,
+      "tag": "took over May 19"
+    },
+    {
+      "label": "June 2026",
+      "spend": 9221,
+      "bookings": 409,
+      "sales": 46244,
+      "roas": 5.0,
+      "ly_sales": 15921,
+      "note": "Founder-led video ads launched. Audiences built.",
+      "chart": true,
+      "partial": false,
+      "counted": true,
+      "tag": null
+    },
+    {
+      "label": "July 2026",
+      "spend": 7325,
+      "bookings": 328,
+      "sales": 32502,
+      "roas": 4.4,
+      "ly_sales": 13282,
+      "note": "Goat Yoga video test. Retargeting added.",
+      "chart": true,
+      "partial": false,
+      "counted": true,
+      "tag": null
+    },
+    {
+      "label": "August 2026",
+      "spend": 1176,
+      "bookings": 91,
+      "sales": 7192,
+      "roas": 6.1,
+      "ly_sales": 13907,
+      "note": "Ads paused most of the month at client request.",
+      "chart": true,
+      "partial": false,
+      "counted": true,
+      "tag": null
+    },
+    {
+      "label": "Sept 1-8, 2026",
+      "spend": 387,
+      "bookings": 45,
+      "sales": 3484,
+      "roas": 9.0,
+      "ly_sales": 26428,
+      "note": "Labor Day campaign relaunched. Season plan built.",
+      "chart": false,
+      "partial": true,
+      "counted": false,
+      "tag": "partial"
+    }
+  ],
+  "partial_note": "May and September sit outside the headline window. We took over on May 19, so May includes 18 days that were not ours, and September is only 8 days of data against a full month last year. Both are shown for completeness and excluded from the totals above.",
+  "season": {
+    "lead": "What October through January produced last season, all Meta-attributed. This is the window we are planning for now.",
+    "cells": [
+      [
+        "October",
+        48282
+      ],
+      [
+        "November",
+        47926
+      ],
+      [
+        "December",
+        69980
+      ],
+      [
+        "January",
+        60573
+      ],
+      [
+        "Season total",
+        226761
+      ]
+    ],
+    "callout_title": "Why the next 6 weeks matter",
+    "callout": "Last season Oct to Jan delivered <b>$226,761</b> on <b>$26,401</b> of spend, an <b>8.6x</b> return. That is the single biggest revenue window of the year, and campaigns need to be live and out of learning before it starts."
+  },
+  "footer_note": "ROSE Therapeutic Farm, Monthly Scorecard, Sept 2026",
+  "takeover": "May 19, 2026",
+  "ly_bookings": 478,
+  "headline_title": "The headline",
+  "headline": "We took the account over on <b>May 19</b>. Across the three complete months since then, June through August, ad spend went from <b>$7,691</b> to <b>$17,722</b> and attributed sales went from <b>$43,110</b> to <b>$85,938</b>, up <b>99%</b>. Bookings rose <b>73%</b>. ROAS moved from 5.6x to 4.9x, which is what happens when you scale spend into colder audiences, and that period still includes August, when ads were paused most of the month at your request.",
+  "chart_lead": "Attributed sales for the three complete months since takeover. August is low by design, ads were paused most of the month at your request."
+}
