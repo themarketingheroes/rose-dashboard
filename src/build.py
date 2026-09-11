@@ -91,6 +91,67 @@ for m in months:
             f'<td class="num">{m["roas"]}</td><td class="num">${m["ly_sales"]:,}</td>'
             + change + f'<td class="note">{m["note"]}</td></tr>')
 
+# ---------- Meta vs FareHarbor comparison ----------
+rc = d["revcompare"]
+rcm = rc["months"]
+rc_meta = sum(x["meta"] for x in rcm)
+rc_fh   = sum(x["fh"]   for x in rcm)
+rc_cap  = rc_meta / rc_fh
+
+W2, H2 = 760, 250
+pl, pb, pt = 58, 40, 22
+ph = H2 - pb - pt
+gw = (W2 - pl - 16) / len(rcm)
+bw2 = gw * 0.28
+mx2 = max(max(x["meta"], x["fh"]) for x in rcm)
+s2 = [f'<svg viewBox="0 0 {W2} {H2}" style="width:100%;height:auto;display:block">']
+for gi in range(4):
+    y = pt + ph * gi / 3
+    s2.append(f'<line x1="{pl}" y1="{y:.0f}" x2="{W2-8}" y2="{y:.0f}" stroke="#243030" stroke-width="1"/>')
+    s2.append(f'<text x="{pl-8}" y="{y+4:.0f}" text-anchor="end" font-family="Arial" '
+              f'font-size="10" fill="#93A2A2">${mx2*(1-gi/3)/1000:.0f}k</text>')
+hit2 = []
+for i, m in enumerate(rcm):
+    x0 = pl + gw * i + gw * 0.18
+    hm = ph * m["meta"] / mx2
+    hf = ph * m["fh"] / mx2
+    s2.append(f'<rect x="{x0:.0f}" y="{pt+ph-hm:.0f}" width="{bw2:.0f}" height="{hm:.0f}" '
+              f'fill="#00CED1" rx="3" class="b c1_{i}"/>')
+    s2.append(f'<rect x="{x0+bw2+7:.0f}" y="{pt+ph-hf:.0f}" width="{bw2:.0f}" height="{hf:.0f}" '
+              f'fill="#3FD08A" rx="3" class="b c1_{i}"/>')
+    gap = m["fh"] - m["meta"]
+    s2.append(f'<text x="{x0+bw2+3:.0f}" y="{pt+ph-max(hm,hf)-7:.0f}" text-anchor="middle" '
+              f'font-family="Arial" font-size="11" font-weight="700" fill="#3FD08A">'
+              f'{"+" if gap>=0 else ""}${abs(gap)/1000:.0f}k</text>')
+    s2.append(f'<text x="{x0+bw2+3:.0f}" y="{H2-14:.0f}" text-anchor="middle" font-family="Arial" '
+              f'font-size="11" fill="#EAF2F2">{m["short"]}</text>')
+    tip2 = {"label": m["label"],
+            "rows": [["Meta-attributed", f'${m["meta"]:,}'],
+                     ["FareHarbor actual", f'${m["fh"]:,}'],
+                     ["Not seen by Meta", f'${m["fh"]-m["meta"]:,}'],
+                     ["Meta captured", f'{m["meta"]/m["fh"]*100:.0f}%']]}
+    hit2.append(f'<rect x="{pl+gw*i:.0f}" y="{pt:.0f}" width="{gw:.0f}" height="{ph:.0f}" '
+                f'fill="transparent" class="hit" data-g="c1_{i}" '
+                f"data-tip2='{json.dumps(tip2)}'></rect>")
+s2.append("".join(hit2)); s2.append("</svg>")
+chart2 = "".join(s2)
+
+revsection = f'''
+ <h2><span class="n">03</span>{rc["title"]}</h2>
+ <p class="lead">{rc["lead"]}</p>
+ <div class="kpis">
+  <div class="kpi"><div class="v">${rc_meta:,}</div><div class="l">Meta-attributed</div><div class="d">what the ad platform can see</div></div>
+  <div class="kpi"><div class="v" style="color:#3FD08A">${rc_fh:,}</div><div class="l">FareHarbor actual</div><div class="d">what the farm actually took</div></div>
+  <div class="kpi"><div class="v">${rc_fh-rc_meta:,}</div><div class="l">Not captured by Meta</div><div class="d">{(1-rc_cap)*100:.0f}% of the total</div></div>
+ </div>
+ <div class="card chartcard">{chart2}
+  <div class="tipbox"></div>
+  <div class="legend"><span><span class="sw" style="background:#00CED1"></span>Meta-attributed</span><span><span class="sw" style="background:#3FD08A"></span>FareHarbor actual</span><span style="margin-left:auto;font-size:11px">Hover a column for detail</span></div>
+ </div>
+ <p class="lead">{rc["note"]}</p>
+ <div class="callout"><h3>Why the two never match exactly</h3><p>{rc["why"]}</p></div>
+'''
+
 season_cells = "".join(
     f'<div class="s"><div class="m">{n}</div><div class="v">${v:,}</div></div>'
     for n, v in d["season"]["cells"])
@@ -119,15 +180,15 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
  .card{{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px 10px;margin:14px 0;position:relative}}
  .b{{transition:opacity .12s ease}} .hit{{cursor:pointer}}
  .card.dim .b{{opacity:.32}} .card.dim .b.on{{opacity:1}}
- #tip{{position:absolute;z-index:5;pointer-events:none;opacity:0;transition:opacity .12s ease;background:#0B1717;border:1px solid #21585A;border-radius:9px;padding:11px 13px;min-width:186px;box-shadow:0 8px 24px rgba(0,0,0,.6)}}
- #tip.on{{opacity:1}}
- #tip .t{{font-size:12px;font-weight:800;color:var(--accent);margin-bottom:8px;white-space:nowrap}}
- #tip .r{{display:flex;justify-content:space-between;gap:16px;font-size:12px;padding:3px 0;white-space:nowrap}}
- #tip .r span:first-child{{color:var(--muted)}} #tip .r span:last-child{{color:#fff;font-weight:700;font-variant-numeric:tabular-nums}}
- #tip .hr{{height:1px;background:#21585A;margin:7px 0}}
- #tip .yr{{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:#7E8C8C;margin:2px 0 3px}}
- #tip .d{{font-size:12px;font-weight:800;text-align:right;margin-top:7px}}
- #tip .d.up{{color:var(--green)}} #tip .d.dn{{color:var(--flat)}}
+ .tipbox{{position:absolute;z-index:5;pointer-events:none;opacity:0;transition:opacity .12s ease;background:#0B1717;border:1px solid #21585A;border-radius:9px;padding:11px 13px;min-width:186px;box-shadow:0 8px 24px rgba(0,0,0,.6)}}
+ .tipbox.on{{opacity:1}}
+ .tipbox .t{{font-size:12px;font-weight:800;color:var(--accent);margin-bottom:8px;white-space:nowrap}}
+ .tipbox .r{{display:flex;justify-content:space-between;gap:16px;font-size:12px;padding:3px 0;white-space:nowrap}}
+ .tipbox .r span:first-child{{color:var(--muted)}} .tipbox .r span:last-child{{color:#fff;font-weight:700;font-variant-numeric:tabular-nums}}
+ .tipbox .hr{{height:1px;background:#21585A;margin:7px 0}}
+ .tipbox .yr{{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:#7E8C8C;margin:2px 0 3px}}
+ .tipbox .d{{font-size:12px;font-weight:800;text-align:right;margin-top:7px}}
+ .tipbox .d.up{{color:var(--green)}} .tipbox .d.dn{{color:var(--flat)}}
  .legend{{display:flex;gap:18px;font-size:12px;color:var(--muted);margin-top:6px}}
  .sw{{width:12px;height:12px;border-radius:3px;display:inline-block;vertical-align:-1px;margin-right:6px}}
  .tablewrap{{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:14px 0;background:var(--panel)}}
@@ -174,19 +235,20 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 
  <h2><span class="n">02</span>This year vs last year, month by month</h2>
  <p class="lead">{d['chart_lead']}</p>
- <div class="card" id="chartcard">{chart}
-  <div id="tip"></div>
+ <div class="card chartcard">{chart}
+  <div class="tipbox"></div>
   <div class="legend"><span><span class="sw" style="background:#3A4A4A"></span>Last year</span><span><span class="sw" style="background:#00CED1"></span>This year</span><span style="margin-left:auto;font-size:11px">Hover a column for detail</span></div>
  </div>
 
- <h2><span class="n">03</span>The scorecard</h2>
+{revsection}
+ <h2><span class="n">04</span>The scorecard</h2>
  <div class="tablewrap"><table>
   <thead><tr><th>Month</th><th class="num">Ad Spend</th><th class="num">Bookings</th><th class="num">Attributed Sales</th><th class="num">ROAS</th><th class="num">Same Month LY</th><th class="num">Change</th><th>What We Did</th></tr></thead>
   <tbody>{trs}</tbody>
  </table></div>
  <p class="lead">{d['partial_note']}</p>
 
- <h2><span class="n">04</span>The season ahead</h2>
+ <h2><span class="n">05</span>The season ahead</h2>
  <p class="lead">{d['season']['lead']}</p>
  <div class="season">{season_cells}</div>
  <div class="callout"><h3>{d['season']['callout_title']}</h3><p>{d['season']['callout']}</p></div>
@@ -196,45 +258,52 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 </div>
 <script>
 (function(){{
- var card=document.getElementById('chartcard'), tip=document.getElementById('tip');
- if(!card||!tip) return;
  var money=function(n){{return '$'+n.toLocaleString('en-US');}};
- function show(el,ev){{
-  var t; try{{ t=JSON.parse(el.getAttribute('data-tip')); }}catch(e){{ return; }}
-  tip.innerHTML='<div class="t">'+t.label+'</div>'
-   +'<div class="yr">This year</div>'
-   +'<div class="r"><span>Sales</span><span>'+money(t.cur.sales)+'</span></div>'
-   +'<div class="r"><span>Spend</span><span>'+money(t.cur.spend)+'</span></div>'
-   +'<div class="r"><span>Bookings</span><span>'+t.cur.bk+'</span></div>'
-   +'<div class="r"><span>ROAS</span><span>'+t.cur.roas+'x</span></div>'
-   +'<div class="hr"></div><div class="yr">Same dates last year</div>'
-   +'<div class="r"><span>Sales</span><span>'+money(t.ly.sales)+'</span></div>'
-   +'<div class="r"><span>Spend</span><span>'+money(t.ly.spend)+'</span></div>'
-   +'<div class="r"><span>Bookings</span><span>'+t.ly.bk+'</span></div>'
-   +'<div class="r"><span>ROAS</span><span>'+t.ly.roas+'x</span></div>'
-   +'<div class="d '+(t.up?'up':'dn')+'">'+t.pct+' sales</div>';
-  tip.classList.add('on'); card.classList.add('dim');
-  var i=el.getAttribute('data-i');
-  card.querySelectorAll('.b').forEach(function(b){{ b.classList.toggle('on', b.classList.contains('b'+i)); }});
-  move(ev);
- }}
- function move(ev){{
-  var r=card.getBoundingClientRect(), x=ev.clientX-r.left+14, y=ev.clientY-r.top+14;
-  if(x+tip.offsetWidth > r.width-8) x=ev.clientX-r.left-tip.offsetWidth-14;
-  if(y+tip.offsetHeight > r.height-8) y=r.height-tip.offsetHeight-8;
-  if(x<8) x=8; if(y<8) y=8;
-  tip.style.left=x+'px'; tip.style.top=y+'px';
- }}
- function hide(){{
-  tip.classList.remove('on'); card.classList.remove('dim');
-  card.querySelectorAll('.b').forEach(function(b){{ b.classList.remove('on'); }});
- }}
- card.querySelectorAll('.hit').forEach(function(el){{
-  el.addEventListener('pointerenter', function(ev){{ show(el,ev); }});
-  el.addEventListener('pointermove', move);
-  el.addEventListener('pointerleave', hide);
+ document.querySelectorAll('.chartcard').forEach(function(card){{
+  var tip=card.querySelector('.tipbox'); if(!tip) return;
+  function move(ev){{
+   var r=card.getBoundingClientRect(), x=ev.clientX-r.left+14, y=ev.clientY-r.top+14;
+   if(x+tip.offsetWidth > r.width-8) x=ev.clientX-r.left-tip.offsetWidth-14;
+   if(y+tip.offsetHeight > r.height-8) y=r.height-tip.offsetHeight-8;
+   if(x<8) x=8; if(y<8) y=8;
+   tip.style.left=x+'px'; tip.style.top=y+'px';
+  }}
+  function hide(){{
+   tip.classList.remove('on'); card.classList.remove('dim');
+   card.querySelectorAll('.b').forEach(function(b){{ b.classList.remove('on'); }});
+  }}
+  card.querySelectorAll('.hit').forEach(function(el){{
+   el.addEventListener('pointerenter', function(ev){{
+    var html='', t;
+    if(el.hasAttribute('data-tip2')){{
+     try{{ t=JSON.parse(el.getAttribute('data-tip2')); }}catch(e){{ return; }}
+     html='<div class="t">'+t.label+'</div>';
+     t.rows.forEach(function(rw){{ html+='<div class="r"><span>'+rw[0]+'</span><span>'+rw[1]+'</span></div>'; }});
+    }} else {{
+     try{{ t=JSON.parse(el.getAttribute('data-tip')); }}catch(e){{ return; }}
+     html='<div class="t">'+t.label+'</div>'
+      +'<div class="yr">This year</div>'
+      +'<div class="r"><span>Sales</span><span>'+money(t.cur.sales)+'</span></div>'
+      +'<div class="r"><span>Spend</span><span>'+money(t.cur.spend)+'</span></div>'
+      +'<div class="r"><span>Bookings</span><span>'+t.cur.bk+'</span></div>'
+      +'<div class="r"><span>ROAS</span><span>'+t.cur.roas+'x</span></div>'
+      +'<div class="hr"></div><div class="yr">Same dates last year</div>'
+      +'<div class="r"><span>Sales</span><span>'+money(t.ly.sales)+'</span></div>'
+      +'<div class="r"><span>Spend</span><span>'+money(t.ly.spend)+'</span></div>'
+      +'<div class="r"><span>Bookings</span><span>'+t.ly.bk+'</span></div>'
+      +'<div class="r"><span>ROAS</span><span>'+t.ly.roas+'x</span></div>'
+      +'<div class="d '+(t.up?'up':'dn')+'">'+t.pct+' sales</div>';
+    }}
+    tip.innerHTML=html; tip.classList.add('on'); card.classList.add('dim');
+    var key = el.getAttribute('data-g') || ('b'+el.getAttribute('data-i'));
+    card.querySelectorAll('.b').forEach(function(b){{ b.classList.toggle('on', b.classList.contains(key)); }});
+    move(ev);
+   }});
+   el.addEventListener('pointermove', move);
+   el.addEventListener('pointerleave', hide);
+  }});
+  card.addEventListener('pointerleave', hide);
  }});
- card.addEventListener('pointerleave', hide);
 }})();
 </script>
 </body></html>"""

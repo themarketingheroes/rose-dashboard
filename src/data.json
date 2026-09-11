@@ -126,5 +126,31 @@
   "chart_lead": "Attributed sales since takeover, each period against the exact same dates last year. August is low by design, ads were paused most of the month at your request.",
   "roas_title": "How to read ROAS",
   "roas_note": "ROAS is a ratio, not revenue. At low spend, ads reach only your warmest audience, so the ratio looks high while the dollars stay small. Scaling reaches colder audiences: the ratio comes down and the total goes up. Last year, <b>$8,270 at 5.9x produced $48,997</b>. This year, <b>$21,046 at 5.2x produced $110,316</b>. Average booking value rose too, from <b>$92 to $109</b>, up 18%. And the FareHarbor checkout means some bookings never reach Meta, so every figure here is a floor, not a ceiling.",
-  "roas_note_jared_alt": "ROAS is a ratio, not revenue. When spend is small, ads only reach the warmest audiences, so the ratio looks high but the total dollars stay small. Scaling spend reaches colder audiences, which lowers the ratio and raises the total. Last year this account spent <b>$8,270 at 5.9x</b> and produced <b>$48,997</b>. This year it spent <b>$21,046 at 5.2x</b> and produced <b>$110,316</b>. These numbers are also undercounted: Meta cannot see walk-ins, phone bookings, or every FareHarbor checkout, so the true return is higher. Average booking value grew from <b>$92 to $109</b>, up 18%."
+  "roas_note_jared_alt": "ROAS is a ratio, not revenue. When spend is small, ads only reach the warmest audiences, so the ratio looks high but the total dollars stay small. Scaling spend reaches colder audiences, which lowers the ratio and raises the total. Last year this account spent <b>$8,270 at 5.9x</b> and produced <b>$48,997</b>. This year it spent <b>$21,046 at 5.2x</b> and produced <b>$110,316</b>. These numbers are also undercounted: Meta cannot see walk-ins, phone bookings, or every FareHarbor checkout, so the true return is higher. Average booking value grew from <b>$92 to $109</b>, up 18%.",
+  "revcompare": {
+    "title": "What Meta reports, and what actually landed",
+    "lead": "Meta only counts a booking when it can follow the guest all the way through the FareHarbor checkout. Your FareHarbor totals include everything: repeat guests, walk-ins, phone bookings and organic. Both are real, they measure different things.",
+    "months": [
+      {
+        "label": "June 2026",
+        "short": "June",
+        "meta": 46244,
+        "fh": 73000
+      },
+      {
+        "label": "July 2026",
+        "short": "July",
+        "meta": 32502,
+        "fh": 35000
+      },
+      {
+        "label": "August 2026",
+        "short": "August",
+        "meta": 7192,
+        "fh": 19400
+      }
+    ],
+    "note": "June through August are the three complete months we fully owned, so they are the only ones where both sources cover the same days. May is left out because our window starts on the 19th while FareHarbor reports the whole month, and September FareHarbor is not in yet.",
+    "why": "Month by month the two never match exactly. Meta records the value on the day someone clicks the ad; FareHarbor records it on the day they actually book. A click in one month that books in the next lands in different columns. Over a full period the two settle down, which is why the total is the number to trust."
+  }
 }

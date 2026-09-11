@@ -22,15 +22,15 @@
  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px 10px;margin:14px 0;position:relative}
  .b{transition:opacity .12s ease} .hit{cursor:pointer}
  .card.dim .b{opacity:.32} .card.dim .b.on{opacity:1}
- #tip{position:absolute;z-index:5;pointer-events:none;opacity:0;transition:opacity .12s ease;background:#0B1717;border:1px solid #21585A;border-radius:9px;padding:11px 13px;min-width:186px;box-shadow:0 8px 24px rgba(0,0,0,.6)}
- #tip.on{opacity:1}
- #tip .t{font-size:12px;font-weight:800;color:var(--accent);margin-bottom:8px;white-space:nowrap}
- #tip .r{display:flex;justify-content:space-between;gap:16px;font-size:12px;padding:3px 0;white-space:nowrap}
- #tip .r span:first-child{color:var(--muted)} #tip .r span:last-child{color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
- #tip .hr{height:1px;background:#21585A;margin:7px 0}
- #tip .yr{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:#7E8C8C;margin:2px 0 3px}
- #tip .d{font-size:12px;font-weight:800;text-align:right;margin-top:7px}
- #tip .d.up{color:var(--green)} #tip .d.dn{color:var(--flat)}
+ .tipbox{position:absolute;z-index:5;pointer-events:none;opacity:0;transition:opacity .12s ease;background:#0B1717;border:1px solid #21585A;border-radius:9px;padding:11px 13px;min-width:186px;box-shadow:0 8px 24px rgba(0,0,0,.6)}
+ .tipbox.on{opacity:1}
+ .tipbox .t{font-size:12px;font-weight:800;color:var(--accent);margin-bottom:8px;white-space:nowrap}
+ .tipbox .r{display:flex;justify-content:space-between;gap:16px;font-size:12px;padding:3px 0;white-space:nowrap}
+ .tipbox .r span:first-child{color:var(--muted)} .tipbox .r span:last-child{color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+ .tipbox .hr{height:1px;background:#21585A;margin:7px 0}
+ .tipbox .yr{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:#7E8C8C;margin:2px 0 3px}
+ .tipbox .d{font-size:12px;font-weight:800;text-align:right;margin-top:7px}
+ .tipbox .d.up{color:var(--green)} .tipbox .d.dn{color:var(--flat)}
  .legend{display:flex;gap:18px;font-size:12px;color:var(--muted);margin-top:6px}
  .sw{width:12px;height:12px;border-radius:3px;display:inline-block;vertical-align:-1px;margin-right:6px}
  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:14px 0;background:var(--panel)}
@@ -77,19 +77,34 @@
 
  <h2><span class="n">02</span>This year vs last year, month by month</h2>
  <p class="lead">Attributed sales since takeover, each period against the exact same dates last year. August is low by design, ads were paused most of the month at your request.</p>
- <div class="card" id="chartcard"><svg viewBox="0 0 760 260" style="width:100%;height:auto;display:block"><line x1="54" y1="16" x2="752" y2="16" stroke="#243030" stroke-width="1"/><text x="46" y="20" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$46k</text><line x1="54" y1="83" x2="752" y2="83" stroke="#243030" stroke-width="1"/><text x="46" y="87" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$31k</text><line x1="54" y1="151" x2="752" y2="151" stroke="#243030" stroke-width="1"/><text x="46" y="155" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$15k</text><line x1="54" y1="218" x2="752" y2="218" stroke="#243030" stroke-width="1"/><text x="46" y="222" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$0k</text><rect x="82" y="192" width="52" height="26" fill="#3A4A4A" rx="3" class="b b0 ly"/><rect x="139" y="112" width="52" height="106" fill="#00CED1" rx="3" class="b b0 ty"/><text x="136" y="105" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#3FD08A">+314%</text><text x="136" y="244" text-anchor="middle" font-family="Arial" font-size="11" fill="#EAF2F2">May 19-31</text><rect x="254" y="148" width="52" height="70" fill="#3A4A4A" rx="3" class="b b1 ly"/><rect x="312" y="16" width="52" height="202" fill="#00CED1" rx="3" class="b b1 ty"/><text x="309" y="9" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#3FD08A">+190%</text><text x="309" y="244" text-anchor="middle" font-family="Arial" font-size="11" fill="#EAF2F2">June</text><rect x="427" y="160" width="52" height="58" fill="#3A4A4A" rx="3" class="b b2 ly"/><rect x="484" y="76" width="52" height="142" fill="#00CED1" rx="3" class="b b2 ty"/><text x="481" y="69" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#3FD08A">+145%</text><text x="481" y="244" text-anchor="middle" font-family="Arial" font-size="11" fill="#EAF2F2">July</text><rect x="599" y="157" width="52" height="61" fill="#3A4A4A" rx="3" class="b b3 ly"/><rect x="657" y="187" width="52" height="31" fill="#00CED1" rx="3" class="b b3 ty"/><text x="654" y="150" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#C9A86A">-48%</text><text x="654" y="244" text-anchor="middle" font-family="Arial" font-size="11" fill="#EAF2F2">August</text><rect x="54" y="16" width="172" height="202" fill="transparent" class="hit" data-i="0" data-tip='{"label": "May 19-31, 2026", "short": "May 19-31", "cur": {"sales": 24378, "spend": 3324, "bk": 185, "roas": "7.3"}, "ly": {"sales": 5887, "spend": 579, "bk": 54, "roas": "10.2"}, "pct": "+314%", "up": true}'></rect><rect x="226" y="16" width="172" height="202" fill="transparent" class="hit" data-i="1" data-tip='{"label": "June 2026", "short": "June", "cur": {"sales": 46244, "spend": 9221, "bk": 409, "roas": "5.0"}, "ly": {"sales": 15921, "spend": 2127, "bk": 170, "roas": "7.5"}, "pct": "+190%", "up": true}'></rect><rect x="399" y="16" width="172" height="202" fill="transparent" class="hit" data-i="2" data-tip='{"label": "July 2026", "short": "July", "cur": {"sales": 32502, "spend": 7325, "bk": 328, "roas": "4.4"}, "ly": {"sales": 13282, "spend": 3247, "bk": 165, "roas": "4.1"}, "pct": "+145%", "up": true}'></rect><rect x="572" y="16" width="172" height="202" fill="transparent" class="hit" data-i="3" data-tip='{"label": "August 2026", "short": "August", "cur": {"sales": 7192, "spend": 1176, "bk": 91, "roas": "6.1"}, "ly": {"sales": 13907, "spend": 2317, "bk": 143, "roas": "6.0"}, "pct": "-48%", "up": false}'></rect></svg>
-  <div id="tip"></div>
+ <div class="card chartcard"><svg viewBox="0 0 760 260" style="width:100%;height:auto;display:block"><line x1="54" y1="16" x2="752" y2="16" stroke="#243030" stroke-width="1"/><text x="46" y="20" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$46k</text><line x1="54" y1="83" x2="752" y2="83" stroke="#243030" stroke-width="1"/><text x="46" y="87" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$31k</text><line x1="54" y1="151" x2="752" y2="151" stroke="#243030" stroke-width="1"/><text x="46" y="155" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$15k</text><line x1="54" y1="218" x2="752" y2="218" stroke="#243030" stroke-width="1"/><text x="46" y="222" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$0k</text><rect x="82" y="192" width="52" height="26" fill="#3A4A4A" rx="3" class="b b0 ly"/><rect x="139" y="112" width="52" height="106" fill="#00CED1" rx="3" class="b b0 ty"/><text x="136" y="105" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#3FD08A">+314%</text><text x="136" y="244" text-anchor="middle" font-family="Arial" font-size="11" fill="#EAF2F2">May 19-31</text><rect x="254" y="148" width="52" height="70" fill="#3A4A4A" rx="3" class="b b1 ly"/><rect x="312" y="16" width="52" height="202" fill="#00CED1" rx="3" class="b b1 ty"/><text x="309" y="9" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#3FD08A">+190%</text><text x="309" y="244" text-anchor="middle" font-family="Arial" font-size="11" fill="#EAF2F2">June</text><rect x="427" y="160" width="52" height="58" fill="#3A4A4A" rx="3" class="b b2 ly"/><rect x="484" y="76" width="52" height="142" fill="#00CED1" rx="3" class="b b2 ty"/><text x="481" y="69" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#3FD08A">+145%</text><text x="481" y="244" text-anchor="middle" font-family="Arial" font-size="11" fill="#EAF2F2">July</text><rect x="599" y="157" width="52" height="61" fill="#3A4A4A" rx="3" class="b b3 ly"/><rect x="657" y="187" width="52" height="31" fill="#00CED1" rx="3" class="b b3 ty"/><text x="654" y="150" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#C9A86A">-48%</text><text x="654" y="244" text-anchor="middle" font-family="Arial" font-size="11" fill="#EAF2F2">August</text><rect x="54" y="16" width="172" height="202" fill="transparent" class="hit" data-i="0" data-tip='{"label": "May 19-31, 2026", "short": "May 19-31", "cur": {"sales": 24378, "spend": 3324, "bk": 185, "roas": "7.3"}, "ly": {"sales": 5887, "spend": 579, "bk": 54, "roas": "10.2"}, "pct": "+314%", "up": true}'></rect><rect x="226" y="16" width="172" height="202" fill="transparent" class="hit" data-i="1" data-tip='{"label": "June 2026", "short": "June", "cur": {"sales": 46244, "spend": 9221, "bk": 409, "roas": "5.0"}, "ly": {"sales": 15921, "spend": 2127, "bk": 170, "roas": "7.5"}, "pct": "+190%", "up": true}'></rect><rect x="399" y="16" width="172" height="202" fill="transparent" class="hit" data-i="2" data-tip='{"label": "July 2026", "short": "July", "cur": {"sales": 32502, "spend": 7325, "bk": 328, "roas": "4.4"}, "ly": {"sales": 13282, "spend": 3247, "bk": 165, "roas": "4.1"}, "pct": "+145%", "up": true}'></rect><rect x="572" y="16" width="172" height="202" fill="transparent" class="hit" data-i="3" data-tip='{"label": "August 2026", "short": "August", "cur": {"sales": 7192, "spend": 1176, "bk": 91, "roas": "6.1"}, "ly": {"sales": 13907, "spend": 2317, "bk": 143, "roas": "6.0"}, "pct": "-48%", "up": false}'></rect></svg>
+  <div class="tipbox"></div>
   <div class="legend"><span><span class="sw" style="background:#3A4A4A"></span>Last year</span><span><span class="sw" style="background:#00CED1"></span>This year</span><span style="margin-left:auto;font-size:11px">Hover a column for detail</span></div>
  </div>
 
- <h2><span class="n">03</span>The scorecard</h2>
+
+ <h2><span class="n">03</span>What Meta reports, and what actually landed</h2>
+ <p class="lead">Meta only counts a booking when it can follow the guest all the way through the FareHarbor checkout. Your FareHarbor totals include everything: repeat guests, walk-ins, phone bookings and organic. Both are real, they measure different things.</p>
+ <div class="kpis">
+  <div class="kpi"><div class="v">$85,938</div><div class="l">Meta-attributed</div><div class="d">what the ad platform can see</div></div>
+  <div class="kpi"><div class="v" style="color:#3FD08A">$127,400</div><div class="l">FareHarbor actual</div><div class="d">what the farm actually took</div></div>
+  <div class="kpi"><div class="v">$41,462</div><div class="l">Not captured by Meta</div><div class="d">33% of the total</div></div>
+ </div>
+ <div class="card chartcard"><svg viewBox="0 0 760 250" style="width:100%;height:auto;display:block"><line x1="58" y1="22" x2="752" y2="22" stroke="#243030" stroke-width="1"/><text x="50" y="26" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$73k</text><line x1="58" y1="85" x2="752" y2="85" stroke="#243030" stroke-width="1"/><text x="50" y="89" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$49k</text><line x1="58" y1="147" x2="752" y2="147" stroke="#243030" stroke-width="1"/><text x="50" y="151" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$24k</text><line x1="58" y1="210" x2="752" y2="210" stroke="#243030" stroke-width="1"/><text x="50" y="214" text-anchor="end" font-family="Arial" font-size="10" fill="#93A2A2">$0k</text><rect x="99" y="91" width="64" height="119" fill="#00CED1" rx="3" class="b c1_0"/><rect x="170" y="22" width="64" height="188" fill="#3FD08A" rx="3" class="b c1_0"/><text x="166" y="15" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#3FD08A">+$27k</text><text x="166" y="236" text-anchor="middle" font-family="Arial" font-size="11" fill="#EAF2F2">June</text><rect x="328" y="126" width="64" height="84" fill="#00CED1" rx="3" class="b c1_1"/><rect x="399" y="120" width="64" height="90" fill="#3FD08A" rx="3" class="b c1_1"/><text x="395" y="113" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#3FD08A">+$2k</text><text x="395" y="236" text-anchor="middle" font-family="Arial" font-size="11" fill="#EAF2F2">July</text><rect x="556" y="191" width="64" height="19" fill="#00CED1" rx="3" class="b c1_2"/><rect x="628" y="160" width="64" height="50" fill="#3FD08A" rx="3" class="b c1_2"/><text x="624" y="153" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#3FD08A">+$12k</text><text x="624" y="236" text-anchor="middle" font-family="Arial" font-size="11" fill="#EAF2F2">August</text><rect x="58" y="22" width="229" height="188" fill="transparent" class="hit" data-g="c1_0" data-tip2='{"label": "June 2026", "rows": [["Meta-attributed", "$46,244"], ["FareHarbor actual", "$73,000"], ["Not seen by Meta", "$26,756"], ["Meta captured", "63%"]]}'></rect><rect x="287" y="22" width="229" height="188" fill="transparent" class="hit" data-g="c1_1" data-tip2='{"label": "July 2026", "rows": [["Meta-attributed", "$32,502"], ["FareHarbor actual", "$35,000"], ["Not seen by Meta", "$2,498"], ["Meta captured", "93%"]]}'></rect><rect x="515" y="22" width="229" height="188" fill="transparent" class="hit" data-g="c1_2" data-tip2='{"label": "August 2026", "rows": [["Meta-attributed", "$7,192"], ["FareHarbor actual", "$19,400"], ["Not seen by Meta", "$12,208"], ["Meta captured", "37%"]]}'></rect></svg>
+  <div class="tipbox"></div>
+  <div class="legend"><span><span class="sw" style="background:#00CED1"></span>Meta-attributed</span><span><span class="sw" style="background:#3FD08A"></span>FareHarbor actual</span><span style="margin-left:auto;font-size:11px">Hover a column for detail</span></div>
+ </div>
+ <p class="lead">June through August are the three complete months we fully owned, so they are the only ones where both sources cover the same days. May is left out because our window starts on the 19th while FareHarbor reports the whole month, and September FareHarbor is not in yet.</p>
+ <div class="callout"><h3>Why the two never match exactly</h3><p>Month by month the two never match exactly. Meta records the value on the day someone clicks the ad; FareHarbor records it on the day they actually book. A click in one month that books in the next lands in different columns. Over a full period the two settle down, which is why the total is the number to trust.</p></div>
+
+ <h2><span class="n">04</span>The scorecard</h2>
  <div class="tablewrap"><table>
   <thead><tr><th>Month</th><th class="num">Ad Spend</th><th class="num">Bookings</th><th class="num">Attributed Sales</th><th class="num">ROAS</th><th class="num">Same Month LY</th><th class="num">Change</th><th>What We Did</th></tr></thead>
   <tbody><tr><td><b>May 19-31, 2026</b> <span class="tag">from takeover</span></td><td class="num">$3,324</td><td class="num">185</td><td class="num">$24,378</td><td class="num">7.3</td><td class="num">$5,887</td><td class="num up">+314%</td><td class="note">Took over May 19. Full account audit and cleanup. Compared with the same 13 days last year.</td></tr><tr><td><b>June 2026</b></td><td class="num">$9,221</td><td class="num">409</td><td class="num">$46,244</td><td class="num">5.0</td><td class="num">$15,921</td><td class="num up">+190%</td><td class="note">Founder-led video ads launched. Audiences built.</td></tr><tr><td><b>July 2026</b></td><td class="num">$7,325</td><td class="num">328</td><td class="num">$32,502</td><td class="num">4.4</td><td class="num">$13,282</td><td class="num up">+145%</td><td class="note">Goat Yoga video test. Retargeting added.</td></tr><tr><td><b>August 2026</b></td><td class="num">$1,176</td><td class="num">91</td><td class="num">$7,192</td><td class="num">6.1</td><td class="num">$13,907</td><td class="num down">-48%</td><td class="note">Ads paused most of the month at client request.</td></tr><tr><td><b>Sept 1-8, 2026</b> <span class="tag">partial</span></td><td class="num">$405</td><td class="num">45</td><td class="num">$3,484</td><td class="num">8.6</td><td class="num">$26,428</td><td class="num na">n/a, partial month</td><td class="note">Labor Day event moved to October 3 and 4. Rebuilt the campaign around the new dates. Built the Oct-Jan season plan.</td></tr></tbody>
  </table></div>
  <p class="lead">September is the only period left out of the totals above. It is 8 days of data against a full month last year, so there is no meaningful percentage to show. May now starts on the 19th, the day we took over, and is compared with the same 13 days last year.</p>
 
- <h2><span class="n">04</span>The season ahead</h2>
+ <h2><span class="n">05</span>The season ahead</h2>
  <p class="lead">What October through January produced last season, all Meta-attributed. This is the window we are planning for now, and it opens with Goatstravaganza on October 3 and 4.</p>
  <div class="season"><div class="s"><div class="m">October</div><div class="v">$48,282</div></div><div class="s"><div class="m">November</div><div class="v">$47,926</div></div><div class="s"><div class="m">December</div><div class="v">$69,980</div></div><div class="s"><div class="m">January</div><div class="v">$60,573</div></div><div class="s"><div class="m">Season total</div><div class="v">$226,761</div></div></div>
  <div class="callout"><h3>The season opens October 3</h3><p>Last season Oct to Jan delivered <b>$226,761</b> on <b>$26,401</b> of spend, an <b>8.6x</b> return. It is the single biggest revenue window of the year, and this year it opens with <b>Goatstravaganza on October 3 and 4</b>. That is under four weeks out, so those campaigns need to go live now to clear the Meta learning phase before the event rather than during it.</p></div>
@@ -99,45 +114,52 @@
 </div>
 <script>
 (function(){
- var card=document.getElementById('chartcard'), tip=document.getElementById('tip');
- if(!card||!tip) return;
  var money=function(n){return '$'+n.toLocaleString('en-US');};
- function show(el,ev){
-  var t; try{ t=JSON.parse(el.getAttribute('data-tip')); }catch(e){ return; }
-  tip.innerHTML='<div class="t">'+t.label+'</div>'
-   +'<div class="yr">This year</div>'
-   +'<div class="r"><span>Sales</span><span>'+money(t.cur.sales)+'</span></div>'
-   +'<div class="r"><span>Spend</span><span>'+money(t.cur.spend)+'</span></div>'
-   +'<div class="r"><span>Bookings</span><span>'+t.cur.bk+'</span></div>'
-   +'<div class="r"><span>ROAS</span><span>'+t.cur.roas+'x</span></div>'
-   +'<div class="hr"></div><div class="yr">Same dates last year</div>'
-   +'<div class="r"><span>Sales</span><span>'+money(t.ly.sales)+'</span></div>'
-   +'<div class="r"><span>Spend</span><span>'+money(t.ly.spend)+'</span></div>'
-   +'<div class="r"><span>Bookings</span><span>'+t.ly.bk+'</span></div>'
-   +'<div class="r"><span>ROAS</span><span>'+t.ly.roas+'x</span></div>'
-   +'<div class="d '+(t.up?'up':'dn')+'">'+t.pct+' sales</div>';
-  tip.classList.add('on'); card.classList.add('dim');
-  var i=el.getAttribute('data-i');
-  card.querySelectorAll('.b').forEach(function(b){ b.classList.toggle('on', b.classList.contains('b'+i)); });
-  move(ev);
- }
- function move(ev){
-  var r=card.getBoundingClientRect(), x=ev.clientX-r.left+14, y=ev.clientY-r.top+14;
-  if(x+tip.offsetWidth > r.width-8) x=ev.clientX-r.left-tip.offsetWidth-14;
-  if(y+tip.offsetHeight > r.height-8) y=r.height-tip.offsetHeight-8;
-  if(x<8) x=8; if(y<8) y=8;
-  tip.style.left=x+'px'; tip.style.top=y+'px';
- }
- function hide(){
-  tip.classList.remove('on'); card.classList.remove('dim');
-  card.querySelectorAll('.b').forEach(function(b){ b.classList.remove('on'); });
- }
- card.querySelectorAll('.hit').forEach(function(el){
-  el.addEventListener('pointerenter', function(ev){ show(el,ev); });
-  el.addEventListener('pointermove', move);
-  el.addEventListener('pointerleave', hide);
+ document.querySelectorAll('.chartcard').forEach(function(card){
+  var tip=card.querySelector('.tipbox'); if(!tip) return;
+  function move(ev){
+   var r=card.getBoundingClientRect(), x=ev.clientX-r.left+14, y=ev.clientY-r.top+14;
+   if(x+tip.offsetWidth > r.width-8) x=ev.clientX-r.left-tip.offsetWidth-14;
+   if(y+tip.offsetHeight > r.height-8) y=r.height-tip.offsetHeight-8;
+   if(x<8) x=8; if(y<8) y=8;
+   tip.style.left=x+'px'; tip.style.top=y+'px';
+  }
+  function hide(){
+   tip.classList.remove('on'); card.classList.remove('dim');
+   card.querySelectorAll('.b').forEach(function(b){ b.classList.remove('on'); });
+  }
+  card.querySelectorAll('.hit').forEach(function(el){
+   el.addEventListener('pointerenter', function(ev){
+    var html='', t;
+    if(el.hasAttribute('data-tip2')){
+     try{ t=JSON.parse(el.getAttribute('data-tip2')); }catch(e){ return; }
+     html='<div class="t">'+t.label+'</div>';
+     t.rows.forEach(function(rw){ html+='<div class="r"><span>'+rw[0]+'</span><span>'+rw[1]+'</span></div>'; });
+    } else {
+     try{ t=JSON.parse(el.getAttribute('data-tip')); }catch(e){ return; }
+     html='<div class="t">'+t.label+'</div>'
+      +'<div class="yr">This year</div>'
+      +'<div class="r"><span>Sales</span><span>'+money(t.cur.sales)+'</span></div>'
+      +'<div class="r"><span>Spend</span><span>'+money(t.cur.spend)+'</span></div>'
+      +'<div class="r"><span>Bookings</span><span>'+t.cur.bk+'</span></div>'
+      +'<div class="r"><span>ROAS</span><span>'+t.cur.roas+'x</span></div>'
+      +'<div class="hr"></div><div class="yr">Same dates last year</div>'
+      +'<div class="r"><span>Sales</span><span>'+money(t.ly.sales)+'</span></div>'
+      +'<div class="r"><span>Spend</span><span>'+money(t.ly.spend)+'</span></div>'
+      +'<div class="r"><span>Bookings</span><span>'+t.ly.bk+'</span></div>'
+      +'<div class="r"><span>ROAS</span><span>'+t.ly.roas+'x</span></div>'
+      +'<div class="d '+(t.up?'up':'dn')+'">'+t.pct+' sales</div>';
+    }
+    tip.innerHTML=html; tip.classList.add('on'); card.classList.add('dim');
+    var key = el.getAttribute('data-g') || ('b'+el.getAttribute('data-i'));
+    card.querySelectorAll('.b').forEach(function(b){ b.classList.toggle('on', b.classList.contains(key)); });
+    move(ev);
+   });
+   el.addEventListener('pointermove', move);
+   el.addEventListener('pointerleave', hide);
+  });
+  card.addEventListener('pointerleave', hide);
  });
- card.addEventListener('pointerleave', hide);
 })();
 </script>
 </body></html>
