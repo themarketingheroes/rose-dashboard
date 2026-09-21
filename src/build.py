@@ -170,6 +170,24 @@ for p in pers:
               f'<td class="num"><b>${mt:,}</b></td><td class="num"><b>${ft:,}</b></td>'
               f'<td class="num"><b>+${ft-mt:,}</b></td><td class="num up">{mt/ft*100:.0f}%</td></tr>')
 
+# combined bottom rows: current seasons first, then everything, so the headline figure is never cherry-picked
+recent_keys = ["w25", "s26"]
+r_m = sum(ptot(k, "meta") for k in recent_keys); r_f = sum(ptot(k, "fh") for k in recent_keys)
+a_m = sum(m["meta"] for m in rcm);               a_f = sum(m["fh"] for m in rcm)
+n_recent = sum(1 for m in rcm if m["period"] in recent_keys)
+rrows += (f'<tr class="tot"><td><b>Combined, last two seasons</b> <span class="tag">{n_recent} months</span></td>'
+          f'<td class="num"><b>${r_m:,}</b></td><td class="num"><b>${r_f:,}</b></td>'
+          f'<td class="num"><b>+${r_f-r_m:,}</b></td><td class="num up"><b>{r_m/r_f*100:.0f}%</b></td></tr>')
+rrows += (f'<tr class="tot2"><td>Combined, all {len(rcm)} months <span class="tag">incl. summer 2025</span></td>'
+          f'<td class="num">${a_m:,}</td><td class="num">${a_f:,}</td>'
+          f'<td class="num">+${a_f-a_m:,}</td><td class="num">{a_m/a_f*100:.0f}%</td></tr>')
+s25_spend = next(p_["spend"] for p_ in pers if p_["key"] == "s25")
+s26_spend = next(p_["spend"] for p_ in pers if p_["key"] == "s26")
+rc_summary = (f'Across the last two seasons, Meta\'s figure came to <b>{r_m/r_f*100:.0f}%</b> of what FareHarbor recorded, '
+              f'holding steady at {cap["w25"]*100:.0f}% and {cap["s26"]*100:.0f}%. Including summer 2025 it is '
+              f'<b>{a_m/a_f*100:.0f}%</b>, because ads ran on ${s25_spend:,} that summer against ${s26_spend:,} this summer, '
+              f'so far less of the business came through Meta.')
+
 notes_html = "".join(f"<li>{t}</li>" for t in rc["notes"])
 
 revsection = f"""
@@ -189,6 +207,7 @@ revsection = f"""
   <thead><tr><th>Month</th><th class="num">Meta-attributed</th><th class="num">FareHarbor actual</th><th class="num">Difference</th><th class="num">Meta share</th></tr></thead>
   <tbody>{rrows}</tbody>
  </table></div>
+ <p class="rcsum">{rc_summary}</p>
  <ul class="rcnotes">{notes_html}</ul>
  <div class="callout"><h3>Why the two never match exactly</h3><p>{rc["why"]}</p></div>
 """
@@ -244,7 +263,7 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
  .tag{{font-size:9.5px;background:#243030;color:#93A2A2;padding:2px 6px;border-radius:99px;letter-spacing:.5px;white-space:nowrap}}
  .callout{{background:var(--tint);border:1px solid #17494B;border-left:4px solid var(--accent);border-radius:10px;padding:16px 18px;margin:16px 0}}
  .callout h3{{margin:0 0 5px;font-size:14.5px;color:var(--accent)}} .callout p{{margin:0;color:#D3E4E4;font-size:13.5px}} .callout b{{color:#fff}}
- table.rc{{min-width:560px}} table.rc tr.sub td{{background:#0E2626;border-top:1px solid #17494B}}
+ table.rc{{min-width:560px}} table.rc tr.tot td{{background:#0B3E3F;border-top:2px solid #00CED1;color:#fff}} table.rc tr.tot2 td{{background:#0E2626;color:#C9D6D6}} .rcsum{{margin:12px 0 6px;padding:12px 15px;background:#0E2626;border-left:4px solid #00CED1;border-radius:8px;color:#D3E4E4;font-size:13.5px}} .rcsum b{{color:#fff}} table.rc tr.sub td{{background:#0E2626;border-top:1px solid #17494B}}
  .rcnotes{{margin:4px 0 14px;padding-left:18px;color:var(--muted);font-size:12.5px;line-height:1.6}}
  .note-panel{{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;margin:14px 0}}
  .note-panel h3{{margin:0 0 6px;font-size:13px;font-weight:800;color:#fff;letter-spacing:.2px}}
