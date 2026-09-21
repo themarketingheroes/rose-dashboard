@@ -94,63 +94,104 @@ for m in months:
 # ---------- Meta vs FareHarbor comparison ----------
 rc = d["revcompare"]
 rcm = rc["months"]
-rc_meta = sum(x["meta"] for x in rcm)
-rc_fh   = sum(x["fh"]   for x in rcm)
-rc_cap  = rc_meta / rc_fh
+pers = rc["periods"]
+def ptot(key, field):
+    return sum(m[field] for m in rcm if m["period"] == key)
+cap = {p["key"]: ptot(p["key"], "meta") / ptot(p["key"], "fh") for p in pers}
+fh_s25, fh_s26 = ptot("s25", "fh"), ptot("s26", "fh")
+fh_growth = (fh_s26 - fh_s25) / fh_s25 * 100
 
-W2, H2 = 760, 250
-pl, pb, pt = 58, 40, 22
+# grouped bars, with a wider gap between periods so the three seasons read apart
+W2, H2 = 760, 290
+pl, pb, pt = 52, 44, 40
 ph = H2 - pb - pt
-gw = (W2 - pl - 16) / len(rcm)
-bw2 = gw * 0.28
+gap_between = 22
+n = len(rcm); nbreaks = len(pers) - 1
+gw = (W2 - pl - 12 - gap_between * nbreaks) / n
+bw2 = gw * 0.30
 mx2 = max(max(x["meta"], x["fh"]) for x in rcm)
 s2 = [f'<svg viewBox="0 0 {W2} {H2}" style="width:100%;height:auto;display:block">']
 for gi in range(4):
     y = pt + ph * gi / 3
     s2.append(f'<line x1="{pl}" y1="{y:.0f}" x2="{W2-8}" y2="{y:.0f}" stroke="#243030" stroke-width="1"/>')
-    s2.append(f'<text x="{pl-8}" y="{y+4:.0f}" text-anchor="end" font-family="Arial" '
+    s2.append(f'<text x="{pl-7}" y="{y+4:.0f}" text-anchor="end" font-family="Arial" '
               f'font-size="10" fill="#93A2A2">${mx2*(1-gi/3)/1000:.0f}k</text>')
 hit2 = []
+xpos = []
+cur_x = pl
+prev_period = None
 for i, m in enumerate(rcm):
-    x0 = pl + gw * i + gw * 0.18
+    if prev_period and m["period"] != prev_period:
+        cur_x += gap_between
+    prev_period = m["period"]
+    xpos.append(cur_x)
+    x0 = cur_x + gw * 0.14
     hm = ph * m["meta"] / mx2
     hf = ph * m["fh"] / mx2
-    s2.append(f'<rect x="{x0:.0f}" y="{pt+ph-hm:.0f}" width="{bw2:.0f}" height="{hm:.0f}" '
-              f'fill="#00CED1" rx="3" class="b c1_{i}"/>')
-    s2.append(f'<rect x="{x0+bw2+7:.0f}" y="{pt+ph-hf:.0f}" width="{bw2:.0f}" height="{hf:.0f}" '
-              f'fill="#3FD08A" rx="3" class="b c1_{i}"/>')
-    gap = m["fh"] - m["meta"]
-    s2.append(f'<text x="{x0+bw2+3:.0f}" y="{pt+ph-max(hm,hf)-7:.0f}" text-anchor="middle" '
-              f'font-family="Arial" font-size="11" font-weight="700" fill="#3FD08A">'
-              f'{"+" if gap>=0 else ""}${abs(gap)/1000:.0f}k</text>')
-    s2.append(f'<text x="{x0+bw2+3:.0f}" y="{H2-14:.0f}" text-anchor="middle" font-family="Arial" '
-              f'font-size="11" fill="#EAF2F2">{m["short"]}</text>')
+    s2.append(f'<rect x="{x0:.1f}" y="{pt+ph-hm:.1f}" width="{bw2:.1f}" height="{hm:.1f}" '
+              f'fill="#00CED1" rx="2" class="b c1_{i}"/>')
+    s2.append(f'<rect x="{x0+bw2+3:.1f}" y="{pt+ph-hf:.1f}" width="{bw2:.1f}" height="{hf:.1f}" '
+              f'fill="#3FD08A" rx="2" class="b c1_{i}"/>')
+    s2.append(f'<text x="{x0+bw2+1.5:.1f}" y="{H2-24:.0f}" text-anchor="middle" font-family="Arial" '
+              f'font-size="10" fill="#EAF2F2">{m["short"]}</text>')
     tip2 = {"label": m["label"],
             "rows": [["Meta-attributed", f'${m["meta"]:,}'],
                      ["FareHarbor actual", f'${m["fh"]:,}'],
-                     ["Not seen by Meta", f'${m["fh"]-m["meta"]:,}'],
-                     ["Meta captured", f'{m["meta"]/m["fh"]*100:.0f}%']]}
-    hit2.append(f'<rect x="{pl+gw*i:.0f}" y="{pt:.0f}" width="{gw:.0f}" height="{ph:.0f}" '
+                     ["Difference", f'{"+" if m["fh"]>=m["meta"] else "-"}${abs(m["fh"]-m["meta"]):,}'],
+                     ["Meta share", f'{m["meta"]/m["fh"]*100:.0f}%']]}
+    hit2.append(f'<rect x="{cur_x:.1f}" y="{pt:.0f}" width="{gw:.1f}" height="{ph:.0f}" '
                 f'fill="transparent" class="hit" data-g="c1_{i}" '
                 f"data-tip2='{json.dumps(tip2)}'></rect>")
+    cur_x += gw
+# season labels above each group, with its capture rate
+for p in pers:
+    idx = [i for i, m in enumerate(rcm) if m["period"] == p["key"]]
+    x_mid = (xpos[idx[0]] + xpos[idx[-1]] + gw) / 2
+    s2.append(f'<text x="{x_mid:.0f}" y="14" text-anchor="middle" font-family="Arial" font-size="11" '
+              f'font-weight="700" fill="#EAF2F2">{p["name"]}</text>')
+    s2.append(f'<text x="{x_mid:.0f}" y="28" text-anchor="middle" font-family="Arial" font-size="10.5" '
+              f'fill="#00CED1">Meta share {cap[p["key"]]*100:.0f}%</text>')
+    s2.append(f'<text x="{x_mid:.0f}" y="{H2-8:.0f}" text-anchor="middle" font-family="Arial" '
+              f'font-size="9.5" fill="#7E8C8C">{p["span"]}</text>')
 s2.append("".join(hit2)); s2.append("</svg>")
 chart2 = "".join(s2)
 
-revsection = f'''
+# table: every month, with a subtotal row per season
+rrows = ""
+for p in pers:
+    for m in [m for m in rcm if m["period"] == p["key"]]:
+        diff = m["fh"] - m["meta"]
+        rrows += (f'<tr><td>{m["label"]}</td><td class="num">${m["meta"]:,}</td>'
+                  f'<td class="num">${m["fh"]:,}</td>'
+                  f'<td class="num">{"+" if diff>=0 else "-"}${abs(diff):,}</td>'
+                  f'<td class="num">{m["meta"]/m["fh"]*100:.0f}%</td></tr>')
+    mt, ft = ptot(p["key"], "meta"), ptot(p["key"], "fh")
+    rrows += (f'<tr class="sub"><td><b>{p["name"]}</b> <span class="tag">{p["span"]}</span></td>'
+              f'<td class="num"><b>${mt:,}</b></td><td class="num"><b>${ft:,}</b></td>'
+              f'<td class="num"><b>+${ft-mt:,}</b></td><td class="num up">{mt/ft*100:.0f}%</td></tr>')
+
+notes_html = "".join(f"<li>{t}</li>" for t in rc["notes"])
+
+revsection = f"""
  <h2><span class="n">03</span>{rc["title"]}</h2>
  <p class="lead">{rc["lead"]}</p>
  <div class="kpis">
-  <div class="kpi"><div class="v">${rc_meta:,}</div><div class="l">Meta-attributed</div><div class="d">what the ad platform can see</div></div>
-  <div class="kpi"><div class="v" style="color:#3FD08A">${rc_fh:,}</div><div class="l">FareHarbor actual</div><div class="d">what the farm actually took</div></div>
-  <div class="kpi"><div class="v">${rc_fh-rc_meta:,}</div><div class="l">Not captured by Meta</div><div class="d">{(1-rc_cap)*100:.0f}% of the total</div></div>
+  <div class="kpi"><div class="v" style="color:#3FD08A">${fh_s26:,}</div><div class="l">FareHarbor actual, May to Aug 2026</div><div class="d">vs ${fh_s25:,} same months 2025</div></div>
+  <div class="kpi"><div class="v" style="color:#3FD08A">+{fh_growth:.0f}%</div><div class="l">Real revenue growth</div><div class="d">from the farm's own FareHarbor</div></div>
+  <div class="kpi"><div class="v">{cap["w25"]*100:.0f}%</div><div class="l">Meta-attributed share, Oct to Dec 2025</div><div class="d">Meta's estimate vs FareHarbor total</div></div>
+  <div class="kpi"><div class="v">{cap["s26"]*100:.0f}%</div><div class="l">Meta-attributed share, May to Aug 2026</div><div class="d">Meta's estimate vs FareHarbor total</div></div>
  </div>
  <div class="card chartcard">{chart2}
   <div class="tipbox"></div>
   <div class="legend"><span><span class="sw" style="background:#00CED1"></span>Meta-attributed</span><span><span class="sw" style="background:#3FD08A"></span>FareHarbor actual</span><span style="margin-left:auto;font-size:11px">Hover a column for detail</span></div>
  </div>
- <p class="lead">{rc["note"]}</p>
+ <div class="tablewrap"><table class="rc">
+  <thead><tr><th>Month</th><th class="num">Meta-attributed</th><th class="num">FareHarbor actual</th><th class="num">Difference</th><th class="num">Meta share</th></tr></thead>
+  <tbody>{rrows}</tbody>
+ </table></div>
+ <ul class="rcnotes">{notes_html}</ul>
  <div class="callout"><h3>Why the two never match exactly</h3><p>{rc["why"]}</p></div>
-'''
+"""
 
 season_cells = "".join(
     f'<div class="s"><div class="m">{n}</div><div class="v">${v:,}</div></div>'
@@ -203,6 +244,8 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
  .tag{{font-size:9.5px;background:#243030;color:#93A2A2;padding:2px 6px;border-radius:99px;letter-spacing:.5px;white-space:nowrap}}
  .callout{{background:var(--tint);border:1px solid #17494B;border-left:4px solid var(--accent);border-radius:10px;padding:16px 18px;margin:16px 0}}
  .callout h3{{margin:0 0 5px;font-size:14.5px;color:var(--accent)}} .callout p{{margin:0;color:#D3E4E4;font-size:13.5px}} .callout b{{color:#fff}}
+ table.rc{{min-width:560px}} table.rc tr.sub td{{background:#0E2626;border-top:1px solid #17494B}}
+ .rcnotes{{margin:4px 0 14px;padding-left:18px;color:var(--muted);font-size:12.5px;line-height:1.6}}
  .note-panel{{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;margin:14px 0}}
  .note-panel h3{{margin:0 0 6px;font-size:13px;font-weight:800;color:#fff;letter-spacing:.2px}}
  .note-panel p{{margin:0;color:#B9C7C7;font-size:13px;line-height:1.62}} .note-panel b{{color:#fff;font-weight:700}}

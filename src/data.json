@@ -80,7 +80,7 @@
       "sales": 3484,
       "roas": 8.6,
       "ly_sales": 26428,
-      "note": "Labor Day event moved to October 3 and 4. Rebuilt the campaign around the new dates. Built the Oct-Jan season plan.",
+      "note": "Rebuilt event campaigns for the October calendar. Built the Oct-Jan season plan.",
       "chart": false,
       "partial": true,
       "counted": false,
@@ -92,7 +92,7 @@
   ],
   "partial_note": "September is the only period left out of the totals above. It is 8 days of data against a full month last year, so there is no meaningful percentage to show. May now starts on the 19th, the day we took over, and is compared with the same 13 days last year.",
   "season": {
-    "lead": "What October through January produced last season, all Meta-attributed. This is the window we are planning for now, and it opens with Goatstravaganza on October 3 and 4.",
+    "lead": "What October through January produced last season, all Meta-attributed. This is the window we are planning for now, and it opens with Pumpkin Carving with Goats on October 9.",
     "cells": [
       [
         "October",
@@ -115,8 +115,8 @@
         226761
       ]
     ],
-    "callout_title": "The season opens October 3",
-    "callout": "Last season Oct to Jan delivered <b>$226,761</b> on <b>$26,401</b> of spend, an <b>8.6x</b> return. It is the single biggest revenue window of the year, and this year it opens with <b>Goatstravaganza on October 3 and 4</b>. That is under four weeks out, so those campaigns need to go live now to clear the Meta learning phase before the event rather than during it."
+    "callout_title": "The season opens October 9",
+    "callout": "Last season Oct to Jan delivered <b>$226,761</b> on <b>$26,401</b> of spend, an <b>8.6x</b> return. It is the single biggest revenue window of the year, and this year it opens with <b>Pumpkin Carving with Goats, Fridays to Sundays from October 9</b>. Campaigns need to be live and out of the Meta learning phase before that first weekend, not during it."
   },
   "footer_note": "ROSE Therapeutic Farm, Monthly Scorecard, Sept 2026",
   "takeover": "May 19, 2026",
@@ -125,32 +125,115 @@
   "headline": "We took the account over on <b>May 19</b>. Every day since then through the end of August, ad spend went from <b>$8,270</b> to <b>$21,046</b> and attributed sales went from <b>$48,997</b> to <b>$110,316</b>, up <b>125%</b>. Bookings rose <b>90%</b>, from 532 to 1013. ROAS moved from 5.9x to 5.2x, which is what happens when you scale spend into colder audiences, and that period still includes August, when ads were paused most of the month at your request.",
   "chart_lead": "Attributed sales since takeover, each period against the exact same dates last year. August is low by design, ads were paused most of the month at your request.",
   "roas_title": "How to read ROAS",
-  "roas_note": "ROAS is a ratio, not revenue. At low spend, ads reach only your warmest audience, so the ratio looks high while the dollars stay small. Scaling reaches colder audiences: the ratio comes down and the total goes up. Last year, <b>$8,270 at 5.9x produced $48,997</b>. This year, <b>$21,046 at 5.2x produced $110,316</b>. Average booking value rose too, from <b>$92 to $109</b>, up 18%. And the FareHarbor checkout means some bookings never reach Meta, so every figure here is a floor, not a ceiling.",
+  "roas_note": "ROAS is a ratio, not revenue. At low spend, ads reach only your warmest audience, so the ratio looks high while the dollars stay small. Scaling reaches colder audiences: the ratio comes down and the total goes up. Last year, <b>$8,270 at 5.9x produced $48,997</b>. This year, <b>$21,046 at 5.2x produced $110,316</b>. Average booking value rose too, from <b>$92 to $109</b>, up 18%. And the FareHarbor checkout means some bookings never reach Meta, so over any full season these figures are a floor, not a ceiling.",
   "roas_note_jared_alt": "ROAS is a ratio, not revenue. When spend is small, ads only reach the warmest audiences, so the ratio looks high but the total dollars stay small. Scaling spend reaches colder audiences, which lowers the ratio and raises the total. Last year this account spent <b>$8,270 at 5.9x</b> and produced <b>$48,997</b>. This year it spent <b>$21,046 at 5.2x</b> and produced <b>$110,316</b>. These numbers are also undercounted: Meta cannot see walk-ins, phone bookings, or every FareHarbor checkout, so the true return is higher. Average booking value grew from <b>$92 to $109</b>, up 18%.",
   "revcompare": {
     "title": "What Meta reports, and what actually landed",
-    "lead": "Meta only counts a booking when it can follow the guest all the way through the FareHarbor checkout. Your FareHarbor totals include everything: repeat guests, walk-ins, phone bookings and organic. Both are real, they measure different things.",
+    "lead": "Meta only counts a booking when it can follow the guest all the way through the FareHarbor checkout. Your FareHarbor totals include everything: repeat guests, walk-ins, phone bookings and organic. Every month where both numbers exist is shown below, full calendar months on both sides.",
     "months": [
       {
+        "label": "May 2025",
+        "short": "May",
+        "period": "s25",
+        "meta": 25010,
+        "fh": 36000
+      },
+      {
+        "label": "June 2025",
+        "short": "Jun",
+        "period": "s25",
+        "meta": 15921,
+        "fh": 52000
+      },
+      {
+        "label": "July 2025",
+        "short": "Jul",
+        "period": "s25",
+        "meta": 13282,
+        "fh": 24000
+      },
+      {
+        "label": "August 2025",
+        "short": "Aug",
+        "period": "s25",
+        "meta": 13907,
+        "fh": 19700
+      },
+      {
+        "label": "October 2025",
+        "short": "Oct",
+        "period": "w25",
+        "meta": 48282,
+        "fh": 59000
+      },
+      {
+        "label": "November 2025",
+        "short": "Nov",
+        "period": "w25",
+        "meta": 47926,
+        "fh": 55900
+      },
+      {
+        "label": "December 2025",
+        "short": "Dec",
+        "period": "w25",
+        "meta": 69980,
+        "fh": 82900
+      },
+      {
+        "label": "May 2026",
+        "short": "May",
+        "period": "s26",
+        "meta": 50959,
+        "fh": 40000
+      },
+      {
         "label": "June 2026",
-        "short": "June",
+        "short": "Jun",
+        "period": "s26",
         "meta": 46244,
         "fh": 73000
       },
       {
         "label": "July 2026",
-        "short": "July",
+        "short": "Jul",
+        "period": "s26",
         "meta": 32502,
         "fh": 35000
       },
       {
         "label": "August 2026",
-        "short": "August",
+        "short": "Aug",
+        "period": "s26",
         "meta": 7192,
         "fh": 19400
       }
     ],
-    "note": "June through August are the three complete months we fully owned, so they are the only ones where both sources cover the same days. May is left out because our window starts on the 19th while FareHarbor reports the whole month, and September FareHarbor is not in yet.",
-    "why": "Month by month the two never match exactly. Meta records the value on the day someone clicks the ad; FareHarbor records it on the day they actually book. A click in one month that books in the next lands in different columns. Over a full period the two settle down, which is why the total is the number to trust."
+    "why": "They measure different things. Meta records a sale on the day someone clicks or views an ad, and counts it even when that guest is a repeat visitor or a referral who might have booked anyway. It also misses people who saw an ad and later booked by phone or after a Google search. FareHarbor records every booking, on the day it is made. So Meta's figure is the platform's own estimate, and the FareHarbor total is what actually landed.",
+    "periods": [
+      {
+        "key": "s25",
+        "name": "Summer 2025",
+        "span": "May to Aug",
+        "spend": 9625
+      },
+      {
+        "key": "w25",
+        "name": "Holiday season 2025",
+        "span": "Oct to Dec",
+        "spend": 18706
+      },
+      {
+        "key": "s26",
+        "name": "Summer 2026",
+        "span": "May to Aug",
+        "spend": 24281
+      }
+    ],
+    "notes": [
+      "Last summer ads ran on $9,625 against $24,281 this summer, so far less of the farm's revenue came through Meta and its share was lower.",
+      "May 2026 includes 18 days before we took over the account on May 19. June 2026 includes an extra week of summer camp, roughly $10,000.",
+      "FareHarbor figures for September 2025, January 2026 and September 2026 are not in yet, so those months are left out rather than estimated."
+    ]
   }
 }
