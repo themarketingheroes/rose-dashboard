@@ -2,7 +2,7 @@
   "client": "ROSE Therapeutic Farm & Goat Yoga",
   "prepared_for": "Tiffany Johnson",
   "account": "51962666",
-  "through": "Sept 8, 2026",
+  "through": "Sept 28, 2026",
   "window_label": "May 19 to August 31, 2026, every day since takeover",
   "ly_spend": 8270,
   "ly_sales": 48997,
@@ -74,13 +74,13 @@
       "ly_bookings": 143
     },
     {
-      "label": "Sept 1-8, 2026",
-      "spend": 405,
-      "bookings": 45,
-      "sales": 3484,
-      "roas": 8.6,
+      "label": "Sept 1-28, 2026",
+      "spend": 5343,
+      "bookings": 330,
+      "sales": 25497,
+      "roas": 4.8,
       "ly_sales": 26428,
-      "note": "Rebuilt event campaigns for the October calendar. Built the Oct-Jan season plan.",
+      "note": "Event budget moved from Goatstravaganza to the core events. Expanded targeting into Houston. Built the Pumpkin Carving, Baby Goat Snuggles and Cow Cuddles campaigns.",
       "chart": false,
       "partial": true,
       "counted": false,
@@ -90,7 +90,7 @@
       "ly_bookings": 310
     }
   ],
-  "partial_note": "September is the only period left out of the totals above. It is 8 days of data against a full month last year, so there is no meaningful percentage to show. May now starts on the 19th, the day we took over, and is compared with the same 13 days last year.",
+  "partial_note": "September is the only period left out of the totals above. It is 28 days of data against a full month last year, so there is no meaningful percentage to show. May now starts on the 19th, the day we took over, and is compared with the same 13 days last year.",
   "season": {
     "lead": "What October through January produced last season, all Meta-attributed. This is the window we are planning for now, and it opens with Pumpkin Carving with Goats on October 9.",
     "cells": [
