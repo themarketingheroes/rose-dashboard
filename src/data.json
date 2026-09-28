@@ -90,7 +90,7 @@
       "ly_bookings": 310
     }
   ],
-  "partial_note": "September is the only period left out of the totals above. It is 28 days of data against a full month last year, so there is no meaningful percentage to show. May now starts on the 19th, the day we took over, and is compared with the same 13 days last year.",
+  "partial_note": "The 2025 column is the same period one year earlier. For May that is the same 13 days from the 19th, the day we took over. For June, July and August it is the full month. For September it is the full month of September 2025 set against 28 days of 2026, which is why no percentage is shown there. September is also the one period left out of the totals above.",
   "season": {
     "lead": "What October through January produced last season, all Meta-attributed. This is the window we are planning for now, and it opens with Pumpkin Carving with Goats on October 9.",
     "cells": [

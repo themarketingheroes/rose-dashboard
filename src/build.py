@@ -305,7 +305,7 @@ html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 {revsection}
  <h2><span class="n">04</span>The scorecard</h2>
  <div class="tablewrap"><table>
-  <thead><tr><th>Month</th><th class="num">Ad Spend</th><th class="num">Bookings</th><th class="num">Attributed Sales</th><th class="num">ROAS</th><th class="num">Same Month LY</th><th class="num">Change</th><th>What We Did</th></tr></thead>
+  <thead><tr><th>Month</th><th class="num">Ad Spend</th><th class="num">Bookings</th><th class="num">Attributed Sales</th><th class="num">ROAS</th><th class="num">Same Period, 2025</th><th class="num">Change vs 2025</th><th>What We Did</th></tr></thead>
   <tbody>{trs}</tbody>
  </table></div>
  <p class="lead">{d['partial_note']}</p>
